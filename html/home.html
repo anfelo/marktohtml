@@ -1,0 +1,27 @@
+{{define "title"}}
+Markdown to HTML
+{{end}}
+
+{{define "content"}}
+<main class="container">
+    <h1 class="text-centered">Markdown to HTML</h1>
+
+    <div class="grid">
+        <div>
+            <label>
+                Markdown
+                <textarea
+                    name="markdown"
+                    placeholder="Write some markdown here..."
+                    aria-label="Markdown text"
+                    rows="15"
+                ></textarea>
+            </label>
+      </div>
+
+      <div>
+          <p>Here goes some HTML</p>
+      </div>
+    </div>
+</main>
+{{end}}
