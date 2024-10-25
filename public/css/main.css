@@ -1,4 +1,9 @@
 /* Here goes some custom css */
+
+.html-container {
+    min-height: 482px;
+}
+
 .text-centered {
-  text-align: center;
+    text-align: center;
 }

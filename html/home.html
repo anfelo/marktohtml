@@ -8,20 +8,28 @@ Markdown to HTML
 
     <div class="grid">
         <div>
+            <input type="hidden" name="CSRF" value="{{with .CSRF}}{{.}}{{end}}" />
             <label>
                 Markdown
                 <textarea
+                    hx-post="/markdown-to-html"
+                    hx-trigger="keyup delay:500ms input"
+                    hx-include="[name='CSRF']"
+                    hx-target="#converted-html"
                     name="markdown"
                     placeholder="Write some markdown here..."
                     aria-label="Markdown text"
                     rows="15"
                 ></textarea>
             </label>
-      </div>
+        </div>
 
-      <div>
-          <p>Here goes some HTML</p>
-      </div>
+        <div>
+            <label>HTML</label>
+            <article class="html-container">
+                <div id="converted-html"></div>
+            </article>
+        </div>
     </div>
 </main>
 {{end}}

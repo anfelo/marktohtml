@@ -10,6 +10,10 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/html"
+	"github.com/gomarkdown/markdown/parser"
 )
 
 //go:embed html/*.html
@@ -48,6 +52,7 @@ func main() {
 	e.Static("/static", "public")
 
 	e.GET("/", Home)
+	e.POST("/markdown-to-html", MarkdownToHTML)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -57,7 +62,28 @@ func main() {
 }
 
 func Home(c echo.Context) error {
-	data := make(map[string]interface{})
+	type data struct {
+		CSRF string
+	}
 
-	return c.Render(http.StatusOK, "home", data)
+	return c.Render(http.StatusOK, "home", data{
+		CSRF: c.Get(middleware.DefaultCSRFConfig.ContextKey).(string),
+	})
+}
+
+func MarkdownToHTML(c echo.Context) error {
+	mdStr := c.FormValue("markdown")
+
+    mdBytes := []byte(mdStr)
+	extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock
+	p := parser.NewWithExtensions(extensions)
+	doc := p.Parse(mdBytes)
+
+	htmlFlags := html.CommonFlags | html.HrefTargetBlank
+	opts := html.RendererOptions{Flags: htmlFlags}
+	renderer := html.NewRenderer(opts)
+
+    html := string(markdown.Render(doc, renderer))
+
+	return c.HTML(http.StatusOK, html)
 }
