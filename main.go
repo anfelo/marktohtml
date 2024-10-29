@@ -83,7 +83,7 @@ func MarkdownToHTML(c echo.Context) error {
 	opts := html.RendererOptions{Flags: htmlFlags}
 	renderer := html.NewRenderer(opts)
 
-    html := string(markdown.Render(doc, renderer))
+    result := string(markdown.Render(doc, renderer))
 
-	return c.HTML(http.StatusOK, html)
+	return c.HTML(http.StatusOK, result)
 }

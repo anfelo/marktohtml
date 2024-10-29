@@ -1,7 +1,14 @@
 /* Here goes some custom css */
 
 .html-container {
-    min-height: 482px;
+    min-height: 458px;
+    position: relative;
+}
+
+.html-container button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .text-centered {

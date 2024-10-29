@@ -32,8 +32,20 @@ Markdown to HTML
         </div>
 
         <div>
-            <label>HTML</label>
+            <div class="grid">
+                <label>HTML</label>
+            </div>
+
             <article class="html-container">
+                <button
+                    id="copy-html-button"
+                    type="button"
+                    class="outline contrast"
+                    data-tooltip="Copy!"
+                    data-placement="bottom">
+                    ✂️
+                </button>
+
                 <div id="converted-html"></div>
             </article>
         </div>
